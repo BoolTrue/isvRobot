@@ -1,16 +1,15 @@
 package com.booltrue.listener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.ListAdapter;
+import android.widget.SimpleCursorAdapter;
 
-import com.booltrue.modle.Question;
+import com.booltrue.modle.QuestionColumn;
 import com.booltrue.ui.MainActivity;
 
 
@@ -42,19 +41,14 @@ public class SearchEditTextListener implements TextWatcher {
 		
 		String[] sqlParam = translatEditText(editText);
 		
-		Cursor questionCursor = mSqlDB.query("QUESTION", new String[]{Question.QuestionTile,Question.QuestionAnswer}, 
-				getSelectionStr(sqlParam.length), sqlParam, null, null, Question.ID);
+		Cursor questionCursor = mSqlDB.query("QUESTION", new String[]{QuestionColumn.QuestionTile,QuestionColumn.QuestionAnswer}, 
+				getSelectionStr(sqlParam.length), sqlParam, null, null, QuestionColumn.ID);
 		
-		ArrayList<String> questionRuesult = new ArrayList<String>();
+		ListAdapter listAdapter = new SimpleCursorAdapter(mainActivity, android.R.layout.simple_list_item_1, 
+				questionCursor, new String[]{QuestionColumn.QuestionTile}, new int[]{android.R.id.text1},0);
 		
-		if(questionCursor!=null){
-			int column = questionCursor.getColumnIndex(Question.QuestionTile);
-			while(questionCursor.moveToNext()){
-				questionRuesult.add(questionCursor.getString(column));
-			}
-		}
 		//把查询结果传给mainActivity
-		mainActivity.handlerSendMessage("questionList", questionRuesult);
+		mainActivity.bindListAdapter(listAdapter);
 		
 	}
 	

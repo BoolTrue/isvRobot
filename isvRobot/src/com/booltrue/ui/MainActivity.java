@@ -5,13 +5,18 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -124,9 +129,12 @@ public class MainActivity extends Activity {
 				//append操作
 				searchEditText.setText("");
 			}
-			else if(bundleTmp.containsKey("questionList")){
-				ArrayList<String> searchList = bundleTmp.getStringArrayList("questionList");
-			}
+//			else if(bundleTmp.containsKey("questionList")){
+//				ArrayList<String> searchList = bundleTmp.getStringArrayList("questionList");
+//				
+//				questionResult.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, searchList));
+//				
+//			}
 
 		}
 	};
@@ -140,13 +148,8 @@ public class MainActivity extends Activity {
 		mHandler.sendMessage(mMsg);
 	}
 	
-	public void handlerSendMessage(String key,ArrayList<String> searchList){
-		Bundle mBundle = new Bundle();
-		Message mMsg = new Message();
-
-		mBundle.putStringArrayList(key, searchList);
-		mMsg.setData(mBundle);
-		mHandler.sendMessage(mMsg);
+	public void bindListAdapter(ListAdapter listAdapter){
+		
 	}
 	
 	
