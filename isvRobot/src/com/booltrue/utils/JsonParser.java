@@ -20,7 +20,7 @@ public class JsonParser {
 				// 转写结果词，默认使用第一个结果
 				JSONArray items = words.getJSONObject(i).getJSONArray("cw");
 				JSONObject obj = items.getJSONObject(0);
-				ret.append(obj.getString("w"));
+				ret.append(obj.getString("w") + ",");
 //				如果需要多候选结果，解析数组其他字段
 //				for(int j = 0; j < items.length(); j++)
 //				{

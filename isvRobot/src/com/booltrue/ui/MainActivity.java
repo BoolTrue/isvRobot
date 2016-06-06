@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
 		
 		SessionUtil.reSetSession();
 
-		Setting.setShowLog(true);
+		Setting.setShowLog(false);
 		
 		
 	}
@@ -149,7 +149,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void bindListAdapter(ListAdapter listAdapter){
-		
+		questionResult.setAdapter(listAdapter);
 	}
 	
 	

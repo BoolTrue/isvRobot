@@ -18,9 +18,9 @@ public class DBHelper extends SQLiteOpenHelper {
 	private String TAG = "数据库Helper";
 	
 	private final String CREATE_TABLE_IF_NOT_EXISTS = "CREATE TABLE IF NOT EXISTS QUESTION (" +
-			"ID INTEGER PRIMARY KEY," +
-			"QUESTIONTITLE VARCHAR ," +
-			"QUESTIONANSWER VARCHAR)";
+			QuestionColumn.ID + " INTEGER PRIMARY KEY," +
+			QuestionColumn.QuestionTile + " VARCHAR ," +
+			QuestionColumn.QuestionAnswer +" VARCHAR)";
 
 	public DBHelper(Context context) {
 		super(context, DB_NAME, null, VERSION);

@@ -41,8 +41,14 @@ public class SearchEditTextListener implements TextWatcher {
 		
 		String[] sqlParam = translatEditText(editText);
 		
-		Cursor questionCursor = mSqlDB.query("QUESTION", new String[]{QuestionColumn.QuestionTile,QuestionColumn.QuestionAnswer}, 
-				getSelectionStr(sqlParam.length), sqlParam, null, null, QuestionColumn.ID);
+		if(sqlParam.equals("")){
+			return;
+		}
+		
+		Cursor questionCursor = mSqlDB.query("QUESTION", new String[]{QuestionColumn.ID,QuestionColumn.QuestionTile,QuestionColumn.QuestionAnswer}, 
+				getSelectionStr(sqlParam.length), sqlParam, null, null, null);
+		
+		Log.d(TAG, "搜索结果条数 -->" + questionCursor.getCount());
 		
 		ListAdapter listAdapter = new SimpleCursorAdapter(mainActivity, android.R.layout.simple_list_item_1, 
 				questionCursor, new String[]{QuestionColumn.QuestionTile}, new int[]{android.R.id.text1},0);
@@ -53,21 +59,30 @@ public class SearchEditTextListener implements TextWatcher {
 	}
 	
 	private String[] translatEditText(String editText){
-		editText = editText.replaceAll("。|?|‘|“|；|：", editText);
 		
-		return editText.split("，");
+		editText = editText.replaceAll("。|？|‘|“|；|：", "");
+		
+		String[] resultArray = editText.split("，|,");
+		
+		for(int i=0;i<resultArray.length;i++){
+			resultArray[i] = "%" + resultArray[i].trim() + "%";
+		}
+		
+		return resultArray;
+		
 	}
 	
 	private String getSelectionStr(int paramLength){
 		
 		String result = "";
+		
 		for(int i=0;i<paramLength;i++){
-			result += " questionTile like %?% or ";
+			result += QuestionColumn.QuestionTile + " like ? and ";
 		}
 		
-		return result += " 1=1 ";
+		Log.d(TAG, "SQL --> " + result);
+		
+		return result += "1=1";
 	}
-	
-	
 	
 }
