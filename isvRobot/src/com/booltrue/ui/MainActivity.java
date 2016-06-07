@@ -14,9 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,9 +38,12 @@ public class MainActivity extends Activity {
 	
 	private String TAG = "主窗口";
 	//基本UI
-	private Button searchBtn = null;
+	//private Button searchBtn = null;
 	private EditText searchEditText = null;
 	private ListView questionResult = null;
+	private ImageButton imgVoiceBtn = null;
+	
+	
 	private Toast mToast = null;
 	//语音合成工具
 	public SpeakTools speakTools = new SpeakTools();
@@ -59,6 +64,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
 		setContentView(R.layout.activity_main);
 
 		//语音合成初始化
@@ -94,16 +100,20 @@ public class MainActivity extends Activity {
 
 	@SuppressLint("ShowToast")
 	private void initUI() {
-		searchBtn = (Button)findViewById(R.id.searchBtn);
+		//searchBtn = (Button)findViewById(R.id.searchBtn);
 		searchEditText = (EditText)findViewById(R.id.searchEditText);
 		questionResult = (ListView)findViewById(R.id.questionList);
+		imgVoiceBtn = (ImageButton)findViewById(R.id.imgVoiceBtn);
 
 		mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 		//设置自定义按键监听
-		searchBtn.setOnClickListener(btnAdapter);
+		//searchBtn.setOnClickListener(btnAdapter);
 		
 		//设置文本框监听
 		searchEditText.addTextChangedListener(textListener);
+		
+		//设置ImageButton监听
+		imgVoiceBtn.setOnClickListener(btnAdapter);
 	}
 
 	//新建Handler 控制Toast
@@ -119,7 +129,7 @@ public class MainActivity extends Activity {
 				mToast.show();
 			}
 			else if(bundleTmp.containsKey("btnText")){
-				searchBtn.setText(bundleTmp.getString("btnText"));
+				//searchBtn.setText(bundleTmp.getString("btnText"));
 			}
 			else if(bundleTmp.containsKey("editText")){
 				//append操作

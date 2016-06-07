@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:layout_margin="0dp"
     android:orientation="vertical"
     android:padding="0dp"
@@ -9,94 +9,136 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:background="#409af5"
+        android:orientation="vertical" >
+        
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:textColor="#fff"
+            android:textSize = "24sp"
+            android:gravity="center"
+            android:text="“营改增”实操百事通语音咨询平台" />
 
-        <!-- 左 -->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="10"
+        android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
 
-            <!-- 左上 -->
+            <!-- 左 -->
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="horizontal" >
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
 
-                <EditText
-                    android:id="@+id/searchEditText"
+                <!-- 左上 -->
+
+                <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dip"
                     android:layout_weight="1"
-                    android:inputType="textPersonName" >
-                </EditText>
+                    android:orientation="horizontal" >
 
-                <Button
-                    android:id="@+id/searchBtn"
+                    <EditText
+                        android:id="@+id/searchEditText"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:inputType="textPersonName" >
+                    </EditText>
+
+                    <Button
+                        android:id="@+id/searchBtn"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Button" />
+                </LinearLayout>
+
+                <!-- 左下 -->
+
+                <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:text="Button" />
+                    android:layout_height="0dip"
+                    android:layout_weight="5"
+                    android:orientation="vertical" >
+
+                    <ListView
+                        android:id="@+id/questionList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+                    </ListView>
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- 左下 -->
+            <!-- 右 -->
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <ListView
-                    android:id="@+id/questionList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-                </ListView>
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- 右 -->
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="3"
-            android:orientation="vertical" >
-
-            <!-- 右上 -->
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:orientation="vertical" >
 
-                <SurfaceView
-                    android:id="@+id/sfv_preview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                <!-- 右上 -->
 
-                <SurfaceView
-                    android:id="@+id/sfv_face"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
-            
-            <!-- 右下 -->
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="1" >
-                
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/RobotFace" />
-                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <SurfaceView
+                        android:id="@+id/sfv_preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    <SurfaceView
+                        android:id="@+id/sfv_face"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                    
+                </LinearLayout>
+
+                <!-- 右下 -->
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="0dip"
+                    android:orientation="vertical"
+                    android:layout_weight="1.5" >
+					
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="人脸检测" />
+                    
+                    <ImageButton
+                        android:id="@+id/imgVoiceBtn"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="3"
+                        android:src="@drawable/kaibo_k" />
+                    
+                   <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="语音对话" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
