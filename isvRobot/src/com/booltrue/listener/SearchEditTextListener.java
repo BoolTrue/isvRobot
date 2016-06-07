@@ -39,12 +39,14 @@ public class SearchEditTextListener implements TextWatcher {
 		
 		SQLiteDatabase mSqlDB = mainActivity.getSQLiteDatabase();
 		
-		String[] sqlParam = translatEditText(editText);
-		
-		if(sqlParam.equals("")){
+		if(editText.trim().equals("")){
 			return;
 		}
 		
+		
+		String[] sqlParam = translatEditText(editText);
+		
+		//查询游标
 		Cursor questionCursor = mSqlDB.query("QUESTION", new String[]{QuestionColumn.ID,QuestionColumn.QuestionTile,QuestionColumn.QuestionAnswer}, 
 				getSelectionStr(sqlParam.length), sqlParam, null, null, null);
 		

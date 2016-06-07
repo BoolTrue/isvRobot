@@ -13,6 +13,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,6 +58,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
 
 		//语音合成初始化
@@ -72,9 +74,8 @@ public class MainActivity extends Activity {
 		initData();
 		
 		SessionUtil.reSetSession();
-
-		Setting.setShowLog(false);
 		
+		Setting.setShowLog(false);
 		
 	}
 	//初始化数据库
@@ -87,7 +88,6 @@ public class MainActivity extends Activity {
 		Log.d(TAG, "dbHelper --> getWritableDatabase()");
 		//获取只读数据库
 		questionDb = dbHelper.getReadableDatabase();
-		
 		
 		
 	}
@@ -129,12 +129,6 @@ public class MainActivity extends Activity {
 				//append操作
 				searchEditText.setText("");
 			}
-//			else if(bundleTmp.containsKey("questionList")){
-//				ArrayList<String> searchList = bundleTmp.getStringArrayList("questionList");
-//				
-//				questionResult.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, searchList));
-//				
-//			}
 
 		}
 	};

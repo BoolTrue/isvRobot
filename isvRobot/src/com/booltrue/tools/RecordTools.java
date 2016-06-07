@@ -233,7 +233,7 @@ public class RecordTools {
 		mIat.setParameter(SpeechConstant.VAD_EOS,"2000");
 
 		// 设置标点符号,设置为"0"返回结果无标点,设置为"1"返回结果有标点
-		mIat.setParameter(SpeechConstant.ASR_PTT, "1");
+		mIat.setParameter(SpeechConstant.ASR_PTT, "0");
 
 		// 设置听写结果是否结果动态修正，为“1”则在听写过程中动态递增地返回结果，否则只在听写结束之后返回最终结果
 		// 注：该参数暂时只对在线听写有效
