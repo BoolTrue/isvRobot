@@ -1,36 +1,36 @@
 package com.booltrue.ui;
 
-import java.util.ArrayList;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
-import android.database.DataSetObserver;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.booltrue.isvRobot.R;
 import com.booltrue.listener.SearchButtonAdapter;
 import com.booltrue.listener.SearchEditTextListener;
+import com.booltrue.modle.QuestionColumn;
 import com.booltrue.tools.DBHelper;
 import com.booltrue.tools.RecordTools;
 import com.booltrue.tools.SpeakTools;
 import com.booltrue.utils.SessionUtil;
-import com.booltrue.utils.SessionUtil.SearchButtonStatus;
 import com.iflytek.cloud.Setting;
 
 
@@ -57,6 +57,11 @@ public class MainActivity extends Activity {
 	private SQLiteDatabase questionDb = null;
 	
 	private DBHelper dbHelper = null;
+	
+	//答案区域
+	private LinearLayout answerArea = null;
+	private Button answerBack = null;
+	private TextView questionAnswer = null;
 	
 	
 
@@ -104,6 +109,12 @@ public class MainActivity extends Activity {
 		searchEditText = (EditText)findViewById(R.id.searchEditText);
 		questionResult = (ListView)findViewById(R.id.questionList);
 		imgVoiceBtn = (ImageButton)findViewById(R.id.imgVoiceBtn);
+		
+		//答案区域
+		answerArea = (LinearLayout)findViewById(R.id.answerArea);
+		answerBack = (Button)findViewById(R.id.answerBack);
+		questionAnswer = (TextView)findViewById(R.id.questionAnswer);
+		
 
 		mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 		//设置自定义按键监听
@@ -114,6 +125,16 @@ public class MainActivity extends Activity {
 		
 		//设置ImageButton监听
 		imgVoiceBtn.setOnClickListener(btnAdapter);
+		
+		//设置答案区域返回按钮监听
+		answerBack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				stopSpeakAndRecord();
+				answerBack();
+			}
+		});
 	}
 
 	//新建Handler 控制Toast
@@ -154,6 +175,39 @@ public class MainActivity extends Activity {
 	
 	public void bindListAdapter(ListAdapter listAdapter){
 		questionResult.setAdapter(listAdapter);
+		
+		questionResult.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				
+				//stopSpeakAndRecord();
+				
+				Log.d(TAG, "ItemClickId -->" + String.valueOf(id));
+				
+				//questionDb.execSQL("select " + QuestionColumn.QuestionAnswer + " from Question where " + QuestionColumn.ID + "=" + id);
+				
+				String args[] = {String.valueOf(id)};
+				Cursor cursor =  questionDb.rawQuery("select " + QuestionColumn.QuestionAnswer 
+								+ " from Question where " 
+								+ QuestionColumn.ID + "= ?", args);
+				
+				
+				//有答案
+				if(cursor.moveToNext()){
+					String questionAnswerStr = cursor.getString(0);
+					
+					questionAnswer.setText(questionAnswerStr);
+					
+					//显示答案
+					showAnswer();
+					
+					speakTools.speakSomething(questionAnswerStr);
+				}
+			
+			}
+			
+		});
 	}
 	
 	
@@ -162,6 +216,21 @@ public class MainActivity extends Activity {
 			initData();
 		}
 		return questionDb;
+	}
+	
+	public void showAnswer(){
+		questionResult.setVisibility(View.GONE);
+		answerArea.setVisibility(View.VISIBLE);
+		
+	}
+	public void answerBack(){
+		questionResult.setVisibility(View.VISIBLE);
+		answerArea.setVisibility(View.GONE);
+	}
+	
+	public void stopSpeakAndRecord(){
+		speakTools.stopSpeaking();
+		recordTools.stopRecording();
 	}
 	
 	@Override

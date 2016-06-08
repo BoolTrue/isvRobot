@@ -18,16 +18,16 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:textColor="#fff"
-            android:textSize = "24sp"
+            android:textSize = "28sp"
             android:gravity="center"
-            android:text="“营改增”实操百事通语音咨询平台" />
+            android:text="“营改增”百事通语音咨询平台" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="0dip"
-        android:layout_weight="10"
+        android:layout_weight="12"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -38,9 +38,9 @@
             <!-- 左 -->
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="0dip"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_weight="4"
                 android:orientation="vertical" >
 
                 <!-- 左上 -->
@@ -56,15 +56,19 @@
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:inputType="textPersonName" >
+                        android:inputType="textPersonName"
+                        android:layout_gravity="center"
+                        android:textSize="38sp"
+                        android:hint="点击小K语音输入，或直接键盘输入"
+                        android:textColor="#00f" >
                     </EditText>
 
-                    <Button
+                    <!-- <Button
                         android:id="@+id/searchBtn"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Button" />
+                        android:text="Button" /> -->
                 </LinearLayout>
 
                 <!-- 左下 -->
@@ -78,17 +82,37 @@
                     <ListView
                         android:id="@+id/questionList"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
+                        android:layout_height="wrap_content"  >
                     </ListView>
+                    
+                    <LinearLayout
+                        android:id="@+id/answerArea"
+                        android:layout_width="fill_parent"
+                    	android:layout_height="fill_parent"
+                    	android:orientation="vertical"
+                    	android:visibility="gone">
+                    	
+                        <TextView 
+	                        android:id="@+id/questionAnswer"
+	                        android:layout_width="match_parent"
+	                        android:layout_height="wrap_content"
+	                        android:textSize="26sp"/>
+                        <Button 
+                            android:id="@+id/answerBack"
+                            android:layout_width="wrap_content"
+                        	android:layout_height="wrap_content"
+                        	android:text="返回"/>
+                    </LinearLayout>
+                    
                 </LinearLayout>
             </LinearLayout>
 
             <!-- 右 -->
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="0dip"
                 android:layout_height="fill_parent"
-                android:layout_weight="3"
+                android:layout_weight="1"
                 android:orientation="vertical" >
 
                 <!-- 右上 -->
@@ -116,13 +140,14 @@
                     android:layout_width="fill_parent"
                     android:layout_height="0dip"
                     android:orientation="vertical"
-                    android:layout_weight="1.5" >
+                    android:layout_weight="1.2" >
 					
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.3"
                         android:gravity="center"
+                        android:textSize="28sp"
                         android:text="人脸检测" />
                     
                     <ImageButton
@@ -130,13 +155,15 @@
                         android:layout_width="fill_parent"
                         android:layout_height="0dip"
                         android:layout_weight="3"
-                        android:src="@drawable/kaibo_k" />
+                        android:src="@drawable/kaibo_k"
+                        android:scaleType="centerCrop" />
                     
                    <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="0.5"
+                        android:layout_weight="0.3"
                         android:gravity="center"
+                        android:textSize="28sp"
                         android:text="语音对话" />
                 </LinearLayout>
             </LinearLayout>

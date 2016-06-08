@@ -9,6 +9,8 @@ import android.util.Log;
 import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 
+import com.booltrue.adapter.QuestionCursorAdapter;
+import com.booltrue.isvRobot.R;
 import com.booltrue.modle.QuestionColumn;
 import com.booltrue.ui.MainActivity;
 
@@ -52,8 +54,13 @@ public class SearchEditTextListener implements TextWatcher {
 		
 		Log.d(TAG, "搜索结果条数 -->" + questionCursor.getCount());
 		
-		ListAdapter listAdapter = new SimpleCursorAdapter(mainActivity, android.R.layout.simple_list_item_1, 
-				questionCursor, new String[]{QuestionColumn.QuestionTile}, new int[]{android.R.id.text1},0);
+		ListAdapter listAdapter = new SimpleCursorAdapter(mainActivity, R.layout.list_text, 
+				questionCursor, new String[]{QuestionColumn.QuestionTile}, new int[]{R.id.listEditText},0);
+		
+		/*ListAdapter listAdapter = new QuestionCursorAdapter(mainActivity, R.layout.list_text, 
+				questionCursor, new String[]{QuestionColumn.QuestionTile}, new int[]{R.id.listEditText},0);*/
+		
+		
 		
 		//把查询结果传给mainActivity
 		mainActivity.bindListAdapter(listAdapter);

@@ -5,6 +5,7 @@ import android.view.View;
 import com.booltrue.utils.SessionUtil.SearchButtonStatus;
 
 import com.booltrue.ui.MainActivity;
+import com.iflytek.thridparty.m;
 
 public class SearchButtonAdapter implements View.OnClickListener {
 	
@@ -18,8 +19,13 @@ public class SearchButtonAdapter implements View.OnClickListener {
 		btnStatus = SearchButtonStatus.WAIT_TO_SPEAK;
 	}
 	
-	@Override
+	@Override 
 	public void onClick(View v) {
+		//隐藏答案区域
+		mainActivity.answerBack();
+		//停止说话
+		mainActivity.stopSpeakAndRecord();
+		
 		//如果是正在说话的状态，则点击按钮直接停止说话
 		if(btnStatus.equals(SearchButtonStatus.IS_SPEAKING)){
 			

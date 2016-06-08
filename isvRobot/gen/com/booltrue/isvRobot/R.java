@@ -40,17 +40,20 @@ public final class R {
         public static final int robot_k=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f090006;
-        public static final int imgVoiceBtn=0x7f090005;
-        public static final int questionList=0x7f090002;
-        public static final int searchBtn=0x7f090001;
+        public static final int action_settings=0x7f090009;
+        public static final int answerArea=0x7f090002;
+        public static final int answerBack=0x7f090004;
+        public static final int imgVoiceBtn=0x7f090007;
+        public static final int listEditText=0x7f090008;
+        public static final int questionAnswer=0x7f090003;
+        public static final int questionList=0x7f090001;
         public static final int searchEditText=0x7f090000;
-        public static final int sfv_face=0x7f090004;
-        public static final int sfv_preview=0x7f090003;
+        public static final int sfv_face=0x7f090006;
+        public static final int sfv_preview=0x7f090005;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int titile=0x7f030001;
+        public static final int list_text=0x7f030001;
     }
     public static final class menu {
         public static final int main=0x7f080000;
