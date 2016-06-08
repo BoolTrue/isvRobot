@@ -54,12 +54,22 @@ public class SearchEditTextListener implements TextWatcher {
 		
 		Log.d(TAG, "搜索结果条数 -->" + questionCursor.getCount());
 		
+		//首先停止说话
+		mainActivity.stopSpeakAndRecord();
+		if(questionCursor.getCount()<=0){
+			
+			mainActivity.newThreadSpeak("暂时没有找到结果，试试其他关键词吧。");
+		}
+		else{
+			mainActivity.newThreadSpeak("请选择你想查询的问题。");
+		}
+		
+		
 		ListAdapter listAdapter = new SimpleCursorAdapter(mainActivity, R.layout.list_text, 
 				questionCursor, new String[]{QuestionColumn.QuestionTile}, new int[]{R.id.listEditText},0);
 		
 		/*ListAdapter listAdapter = new QuestionCursorAdapter(mainActivity, R.layout.list_text, 
 				questionCursor, new String[]{QuestionColumn.QuestionTile}, new int[]{R.id.listEditText},0);*/
-		
 		
 		
 		//把查询结果传给mainActivity

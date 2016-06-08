@@ -5,7 +5,6 @@ import android.view.View;
 import com.booltrue.utils.SessionUtil.SearchButtonStatus;
 
 import com.booltrue.ui.MainActivity;
-import com.iflytek.thridparty.m;
 
 public class SearchButtonAdapter implements View.OnClickListener {
 	
