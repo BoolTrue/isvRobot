@@ -10,7 +10,7 @@ public class StringUtils {
 		//去除中文符号
 		param =  param.replaceAll("。|？|‘|“|；|：|！", "");
 		//去除英文符号
-		return param.replaceAll("|.|?|'|\"|;|:|!", "");
+		return param.replaceAll("|.|\\?|'|\"|;|:|!", "");
 	}
 
 	public static String[] translatEditText(String editText){

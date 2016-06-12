@@ -117,9 +117,11 @@ public class RecordTools {
 
 		@Override
 		public void onResult(RecognizerResult results, boolean isLast) {
-			Log.d(TAG, "结果:" + results.getResultString());
+			
+			Log.d(TAG, "结果:" + results.getResultString() + "  isLast:"+ isLast);
 			//实时设置文本框的内容
 			((MainActivity)context).handlerSendMessage("editText", translateResult(results));
+			
 			
 			if (isLast) {
 				// TODO 最后的结果
@@ -237,7 +239,7 @@ public class RecordTools {
 
 		// 设置听写结果是否结果动态修正，为“1”则在听写过程中动态递增地返回结果，否则只在听写结束之后返回最终结果
 		// 注：该参数暂时只对在线听写有效
-		mIat.setParameter(SpeechConstant.ASR_DWA, "1");
+		mIat.setParameter(SpeechConstant.ASR_DWA, "0");
 	}
 
 	public void stopRecording(){

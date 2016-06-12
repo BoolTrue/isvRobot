@@ -5,6 +5,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import android.util.Log;
+
 /**
  * Json结果解析类
  */
@@ -103,19 +105,20 @@ public class JsonParser {
 		try {
 			
 			JSONTokener tokener = new JSONTokener(json);
-			JSONObject joResult = new JSONObject(tokener);
+			JSONObject jsonResult = new JSONObject(tokener);
 			
-			JSONArray words = joResult.getJSONArray("rc");
+			int rcCode = jsonResult.getInt("rc");
 			
-			String rcCode = words.getString(0);
+			Log.d("JsonParser", "rc -->" + rcCode);
+			
 			//如果返回状应答码不为0 则表示出错或没有理解
-			if(!rcCode.equals("0")){
+			if(rcCode!=0){
 				return null;
 			}
 			
-			JSONObject answerObj = joResult.getJSONObject("answer");
+			JSONObject answerObj = jsonResult.getJSONObject("answer");
 			
-			String answerStr = answerObj.getJSONArray("text").getString(0);
+			String answerStr = answerObj.getString("text");
 			
 			if(answerStr==null||answerStr.equals("")){
 				return null;

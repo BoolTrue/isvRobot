@@ -34,30 +34,17 @@ public class SearchEditTextListener implements TextWatcher {
 		
 		Log.d(TAG, editText);
 		
-		
+		Log.d(TAG,"start-->" + start + "  before-->" + before + "  count-->" + count);
 		
 		if(editText.trim().equals("")){
 			return;
 		}
 		
+		mainActivity.stopSpeakAndRecord();
+		
 		//首先进行讯飞语义查询
 		mainActivity.understandTools.understandText(editText);
 		
 	}
-	
-	
-	
-	/*private String getSelectionStr(int paramLength){
-		
-		String result = "";
-		
-		for(int i=0;i<paramLength;i++){
-			result += QuestionColumn.QuestionTile + " like ? and ";
-		}
-		
-		Log.d(TAG, "SQL --> " + result);
-		
-		return result += "1=1";
-	}*/
 	
 }

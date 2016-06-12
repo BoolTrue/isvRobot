@@ -56,10 +56,11 @@ public class UnderstandTools {
 			mTextUnderstander.cancel();
 			ToastUtil.showTip("取消文本理解", mContext, Toast.LENGTH_SHORT);
 		}
-		else{
+		else if(!mainActivity.recordTools.isRcord){
 			//字符串处理 去除标点符号
 			String unPunctuateStr = StringUtils.replaceAllPunctuate(understandStr);
-
+			
+			Log.d(TAG, "语义理解字符串（去标点） -->" + unPunctuateStr );
 			ret = mTextUnderstander.understandText(unPunctuateStr, mTextUnderstanderListener);
 
 
@@ -78,9 +79,14 @@ public class UnderstandTools {
 				// 显示
 				String resultText = result.getResultString();
 				if (!TextUtils.isEmpty(resultText)) {
-
+					
+					Log.d(TAG, "jsonResult" + resultText);
+					
 					//理解完毕
+					//json解析
 					String answer = JsonParser.parseUnderstandRusult(resultText);
+					
+					Log.d(TAG, "解析得到的结果" + answer);
 					
 					if(answer==null||answer.equals("")){
 						//Bmob云端解析
@@ -89,9 +95,6 @@ public class UnderstandTools {
 					else{
 						resultDealWith(answer);
 					}
-					
-					
-
 				}
 			}
 			else {
@@ -107,8 +110,9 @@ public class UnderstandTools {
 			// 文本语义不能使用回调错误码14002，请确认您下载sdk时是否勾选语义场景和私有语义的发布
 			ToastUtil.showTip("讯飞语义onError Code：" + error.getErrorCode(), mContext, Toast.LENGTH_SHORT);
 			
+			Log.d(TAG, "讯飞语义onError Code：" + error.getErrorCode());
 			//Bmob云端解析
-			BmobDealWith();
+			//BmobDealWith();
 		}
 	};
 

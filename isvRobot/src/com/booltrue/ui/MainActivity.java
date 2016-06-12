@@ -131,6 +131,8 @@ public class MainActivity extends Activity implements OnTouchListener {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置全屏
 		setContentView(R.layout.activity_main);
+		
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); 
 
 		//语音合成初始化
 		speakTools.initSpeakParams(MainActivity.this);
