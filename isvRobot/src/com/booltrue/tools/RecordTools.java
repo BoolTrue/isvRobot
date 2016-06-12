@@ -244,4 +244,8 @@ public class RecordTools {
 		mIat.cancel();
 		this.isRcord = false;
 	}
+	
+	public void destory(){
+		mIat.destroy();
+	}
 }

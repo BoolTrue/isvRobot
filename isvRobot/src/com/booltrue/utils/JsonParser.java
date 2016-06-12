@@ -1,6 +1,7 @@
 package com.booltrue.utils;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -92,4 +93,42 @@ public class JsonParser {
 		} 
 		return ret.toString();
 	}
+	/**
+	 * 语义理解解析
+	 * @param json
+	 * @return
+	 */
+	public static String parseUnderstandRusult(String json){
+		
+		try {
+			
+			JSONTokener tokener = new JSONTokener(json);
+			JSONObject joResult = new JSONObject(tokener);
+			
+			JSONArray words = joResult.getJSONArray("rc");
+			
+			String rcCode = words.getString(0);
+			//如果返回状应答码不为0 则表示出错或没有理解
+			if(!rcCode.equals("0")){
+				return null;
+			}
+			
+			JSONObject answerObj = joResult.getJSONObject("answer");
+			
+			String answerStr = answerObj.getJSONArray("text").getString(0);
+			
+			if(answerStr==null||answerStr.equals("")){
+				return null;
+			}
+			return answerStr;
+			
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+			
+			return null;
+		}		
+	}
+	
 }

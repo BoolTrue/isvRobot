@@ -50,6 +50,8 @@ public class SearchButtonAdapter implements View.OnClickListener {
 		
 		btnStatus = SearchButtonStatus.WAIT_TO_SPEAK;
 		
+		mainActivity.reSetTimeOut();
+		
 	}
 	
 	public SearchButtonStatus getBtnStatus(){

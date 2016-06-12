@@ -1,90 +1,165 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    xmlns:gif="http://schemas.android.com/apk/res/com.booltrue.isvRobot"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_margin="0dp"
-    android:orientation="vertical"
     android:padding="0dp"
     tools:context="com.booltrue.ui.MainActivity" >
 
-    <LinearLayout
+    <!-- <ImageView
+        android:id="@+id/waitImg"
         android:layout_width="fill_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:background="#409af5"
-        android:orientation="vertical" >
-        
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:textColor="#fff"
-            android:textSize = "18dip"
-            android:gravity="center"
-            android:text="“营改增”百事通语音咨询平台" />
-
-    </LinearLayout>
-
+	    android:layout_height="fill_parent"
+	    android:scaleType="centerCrop"
+	    android:src="@drawable/wait_png" />-->
+	
+	  <com.booltrue.ui.view.TypegifView
+	    android:id="@+id/gifView"
+		android:layout_width="fill_parent" 
+		android:layout_height="fill_parent"
+		android:scaleType="centerCrop"
+		gif:stop="true"
+		gif:src="@drawable/wait_bg"
+		gif:delay="1"
+		>
+	</com.booltrue.ui.view.TypegifView>
+	
+    
     <LinearLayout
+        android:id="@+id/mainLayout"
         android:layout_width="fill_parent"
-        android:layout_height="0dip"
-        android:layout_weight="12"
-        android:orientation="vertical" >
+        android:layout_height="fill_parent"
+        android:layout_margin="0dp"
+        android:orientation="vertical"
+        android:visibility="gone" >
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:background="#00c5d0"
+            android:orientation="vertical" >
 
-            <!-- 左 -->
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:text="“营改增”百事通语音咨询平台"
+                android:textColor="#000"
+                android:textSize="18dip" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0dip"
+            android:layout_weight="12"
+            android:background="@drawable/bg"
+            android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="fill_parent"
-                android:layout_weight="4"
-                android:orientation="vertical" >
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
 
-                <!-- 左上 -->
+                <!-- 左 -->
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dip"
-                    android:layout_weight="1"
-                    android:orientation="horizontal" >
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="3.5"
+                    android:orientation="vertical" >
 
-                    <EditText
-                        android:id="@+id/searchEditText"
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:inputType="textPersonName"
-                        android:layout_gravity="center"
-                        android:textSize="18sp"
-                        android:hint="点击小K语音输入，或直接键盘输入"
-                        android:textColor="#00f" >
-                    </EditText>
+                    <!-- 左上 -->
 
-                    <!-- <Button
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
+
+                        <EditText
+                            android:id="@+id/searchEditText"
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="3"
+                            android:hint="点击小AI语音输入，或直接键盘输入"
+                            android:inputType="textPersonName"
+                            android:textColor="#fff"
+                            android:textSize="18sp" >
+                        </EditText>
+
+                        <!--
+                         <Button
                         android:id="@+id/searchBtn"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Button" /> -->
-                </LinearLayout>
+                        android:text="Button" />
+                        -->
+                    </LinearLayout>
 
-                <!-- 左下 -->
+                    <!-- 左下 -->
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dip"
-                    android:layout_weight="5"
-                    android:orientation="vertical" >
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dip"
+                        android:layout_marginLeft="5sp"
+                        android:layout_weight="5"
+                        android:orientation="vertical" >
 
-                    <ListView
-                        android:id="@+id/questionList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"  >
-                    </ListView>
-                    
+                        <ListView
+                            android:id="@+id/questionList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                        </ListView>
+
+                        <ScrollView
+                            android:id="@+id/answerArea"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:visibility="gone" >
+
+                            <LinearLayout
+                                android:id="@+id/answerArear"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" >
+
+                                <TextView
+                                    android:id="@+id/questionAnswer"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="#fff"
+                                    android:textSize="16sp" />
+
+                                <ImageView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="128dip"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="30dip"
+                                    android:src="@drawable/qr_code" />
+
+                                <TextView
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center_horizontal"
+                                    android:text="扫一扫，获取更多信息"
+                                    android:textColor="#fff"
+                                    android:textSize="12sp" />
+
+                                <Button
+                                    android:id="@+id/answerBack"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="点此返回"
+                                    android:textColor="#ffe" />
+                            </LinearLayout>
+                        </ScrollView>
+
+                        <!--
                     <LinearLayout
                         android:id="@+id/answerArea"
                         android:layout_width="fill_parent"
@@ -96,78 +171,85 @@
 	                        android:id="@+id/questionAnswer"
 	                        android:layout_width="match_parent"
 	                        android:layout_height="wrap_content"
-	                        android:textSize="16sp"/>
+	                        android:textSize="16sp"
+	                        android:textColor="#fff"/>
                         <Button 
                             android:id="@+id/answerBack"
                             android:layout_width="wrap_content"
                         	android:layout_height="wrap_content"
-                        	android:text="返回"/>
+                        	android:text="返回"
+                        	android:textColor="#ffe"/>
                     </LinearLayout>
-                    
+                        -->
+
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <!-- 右 -->
-
-            <LinearLayout
-                android:layout_width="0dip"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" >
-
-                <!-- 右上 -->
+                <!-- 右 -->
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dip"
+                    android:layout_width="0dip"
+                    android:layout_height="fill_parent"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
-                    <SurfaceView
-                        android:id="@+id/sfv_preview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                    <SurfaceView
-                        android:id="@+id/sfv_face"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                    
-                </LinearLayout>
+                    <!-- 右上 -->
 
-                <!-- 右下 -->
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dip"
-                    android:orientation="vertical"
-                    android:layout_weight="1.2" >
-					
-                    <TextView
+                        <SurfaceView
+                            android:id="@+id/sfv_preview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="invisible" />
+
+                        <SurfaceView
+                            android:id="@+id/sfv_face"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+
+                    <!-- 右下 -->
+
+                    <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="0.3"
-                        android:gravity="center"
-                        android:textSize="8sp"
-                        android:text="人脸检测" />
-                    
-                    <ImageButton
-                        android:id="@+id/imgVoiceBtn"
-                        android:layout_width="fill_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="3"
-                        android:src="@drawable/kaibo_k"
-                        android:scaleType="centerCrop" />
-                    
-                   <TextView
-                        android:layout_width="fill_parent"
-                        android:layout_height="0dip"
-                        android:layout_weight="0.3"
-                        android:gravity="center"
-                        android:textSize="8sp"
-                        android:text="语音对话" />
+                        android:layout_weight="1.2"
+                        android:orientation="vertical" >
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="0dip"
+                            android:layout_weight="0.3"
+                            android:gravity="center"
+                            android:text="人脸检测"
+                            android:textSize="8sp" />
+
+                        <ImageButton
+                            android:id="@+id/imgVoiceBtn"
+                            android:layout_width="fill_parent"
+                            android:layout_height="0dip"
+                            android:layout_weight="2.5"
+                            android:background="#00000000"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/voice_button" />
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="0dip"
+                            android:layout_weight="0.3"
+                            android:gravity="center"
+                            android:text="语音对话"
+                            android:textSize="8sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

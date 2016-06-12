@@ -9,18 +9,45 @@ package com.booltrue.isvRobot;
 
 public final class R {
     public static final class array {
-        public static final int emot_entries=0x7f060004;
-        public static final int emot_values=0x7f060005;
+        public static final int emot_entries=0x7f070004;
+        public static final int emot_values=0x7f070005;
         /**  合成 
          */
-        public static final int engine_entries=0x7f060000;
-        public static final int engine_values=0x7f060001;
-        public static final int stream_entries=0x7f060006;
-        public static final int stream_values=0x7f060007;
-        public static final int voicer_cloud_entries=0x7f060002;
-        public static final int voicer_cloud_values=0x7f060003;
+        public static final int engine_entries=0x7f070000;
+        public static final int engine_values=0x7f070001;
+        public static final int stream_entries=0x7f070006;
+        public static final int stream_values=0x7f070007;
+        public static final int voicer_cloud_entries=0x7f070002;
+        public static final int voicer_cloud_values=0x7f070003;
     }
     public static final class attr {
+        /**  播放延迟 
+         <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int delay=0x7f010001;
+        /** 图片来源
+         <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int src=0x7f010000;
+        /**  设置是否停止  
+         <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int stop=0x7f010002;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -30,43 +57,52 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int kaibo_k=0x7f020001;
-        public static final int robot_face=0x7f020002;
-        public static final int robot_k=0x7f020003;
+        public static final int bg=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int qr_code=0x7f020002;
+        public static final int robot_k_gif=0x7f020003;
+        public static final int voice_button=0x7f020004;
+        public static final int wait_bg=0x7f020005;
+        public static final int wait_png=0x7f020006;
     }
     public static final class id {
-        public static final int action_settings=0x7f090009;
-        public static final int answerArea=0x7f090002;
-        public static final int answerBack=0x7f090004;
-        public static final int imgVoiceBtn=0x7f090007;
-        public static final int listEditText=0x7f090008;
-        public static final int questionAnswer=0x7f090003;
-        public static final int questionList=0x7f090001;
-        public static final int searchEditText=0x7f090000;
-        public static final int sfv_face=0x7f090006;
-        public static final int sfv_preview=0x7f090005;
+        public static final int action_settings=0x7f0a000c;
+        public static final int answerArea=0x7f0a0004;
+        public static final int answerArear=0x7f0a0005;
+        public static final int answerBack=0x7f0a0007;
+        public static final int gifView=0x7f0a0000;
+        public static final int imgVoiceBtn=0x7f0a000a;
+        public static final int listTextView=0x7f0a000b;
+        public static final int mainLayout=0x7f0a0001;
+        public static final int questionAnswer=0x7f0a0006;
+        public static final int questionList=0x7f0a0003;
+        public static final int searchEditText=0x7f0a0002;
+        public static final int sfv_face=0x7f0a0009;
+        public static final int sfv_preview=0x7f0a0008;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int list_text=0x7f030001;
     }
     public static final class menu {
-        public static final int main=0x7f080000;
+        public static final int main=0x7f090000;
+    }
+    public static final class raw {
+        public static final int unlock=0x7f040000;
     }
     public static final class string {
-        public static final int action_settings=0x7f050002;
+        public static final int action_settings=0x7f060002;
         /**  配置语音服务appId 
  <string name="app_id">55a3338d</string> 
          */
-        public static final int app_id=0x7f050003;
-        public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050001;
-        public static final int tts_toast_format=0x7f050004;
+        public static final int app_id=0x7f060003;
+        public static final int app_name=0x7f060000;
+        public static final int hello_world=0x7f060001;
+        public static final int tts_toast_format=0x7f060004;
     }
     public static final class style {
         /** 
@@ -90,10 +126,77 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a gifView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #gifView_delay com.booltrue.isvRobot:delay}</code></td><td> 播放延迟 </td></tr>
+           <tr><td><code>{@link #gifView_src com.booltrue.isvRobot:src}</code></td><td>图片来源</td></tr>
+           <tr><td><code>{@link #gifView_stop com.booltrue.isvRobot:stop}</code></td><td> 设置是否停止  </td></tr>
+           </table>
+           @see #gifView_delay
+           @see #gifView_src
+           @see #gifView_stop
+         */
+        public static final int[] gifView = {
+            0x7f010000, 0x7f010001, 0x7f010002
+        };
+        /**
+          <p>
+          @attr description
+           播放延迟 
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.booltrue.isvRobot:delay
+        */
+        public static final int gifView_delay = 1;
+        /**
+          <p>
+          @attr description
+          图片来源
+
+
+          <p>Must be an integer value, such as "<code>100</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.booltrue.isvRobot:src
+        */
+        public static final int gifView_src = 0;
+        /**
+          <p>
+          @attr description
+           设置是否停止  
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          <p>This is a private symbol.
+          @attr name com.booltrue.isvRobot:stop
+        */
+        public static final int gifView_stop = 2;
+    };
 }

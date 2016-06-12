@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.booltrue.ui.MainActivity;
 import com.booltrue.utils.ApkInstaller;
 import com.booltrue.utils.SessionUtil;
 import com.booltrue.utils.ToastUtil;
@@ -14,15 +15,18 @@ import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SpeechUnderstander;
 import com.iflytek.cloud.SpeechUtility;
 import com.iflytek.cloud.SynthesizerListener;
 
 public class SpeakTools {
 	// 语音合成对象
 	private SpeechSynthesizer mTts;
-
+	
 	private Context context;
 
+	private MainActivity mainActivity;
+	
 	// 语记安装助手类
 	private ApkInstaller mInstaller ;
 
@@ -37,6 +41,7 @@ public class SpeakTools {
 
 	public void initSpeakParams(Context context){
 		this.context = context;
+		mainActivity = (MainActivity)context;
 		this.mTts = SpeechSynthesizer.createSynthesizer(context, mTtsInitListener);
 		this.mInstaller = new  ApkInstaller((Activity)context);
 	}
@@ -139,6 +144,7 @@ public class SpeakTools {
 				ToastUtil.showTip(error.getPlainDescription(true), context, Toast.LENGTH_SHORT);
 			}
 			isPlay = false;
+			mainActivity.reSetTimeOut();
 		}
 
 		@Override
@@ -197,6 +203,9 @@ public class SpeakTools {
 		mTts.stopSpeaking();
 		this.isPlay = false;
 	}
-
+	
+	public void destory(){
+		mTts.destroy();
+	}
 
 }
