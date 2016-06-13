@@ -53,8 +53,8 @@ public class UnderstandTools {
 		ToastUtil.showTip(questionStr, mContext, Toast.LENGTH_SHORT);
 
 		if (mTextUnderstander.isUnderstanding()) {
-			mTextUnderstander.cancel();
-			ToastUtil.showTip("取消文本理解", mContext, Toast.LENGTH_SHORT);
+			/*mTextUnderstander.cancel();
+			ToastUtil.showTip("取消文本理解", mContext, Toast.LENGTH_SHORT);*/
 		}
 		else if(!mainActivity.recordTools.isRcord){
 			//字符串处理 去除标点符号

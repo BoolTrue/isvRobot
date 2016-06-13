@@ -51,6 +51,7 @@ import com.booltrue.tools.QuestionBmobTools;
 import com.booltrue.tools.RecordTools;
 import com.booltrue.tools.SpeakTools;
 import com.booltrue.tools.UnderstandTools;
+import com.booltrue.tools.WakeTools;
 import com.booltrue.ui.view.TypegifView;
 import com.booltrue.utils.SessionUtil;
 import com.iflytek.cloud.FaceDetector;
@@ -75,6 +76,9 @@ public class MainActivity extends Activity implements OnTouchListener {
 	public RecordTools recordTools = new RecordTools();
 	//语义理解
 	public UnderstandTools understandTools = new UnderstandTools();
+	//语音唤醒
+	public WakeTools wakeTools = new WakeTools();
+	
 
 	private SearchButtonAdapter btnAdapter = null;
 	private SearchEditTextListener textListener = null;
@@ -140,17 +144,19 @@ public class MainActivity extends Activity implements OnTouchListener {
 		recordTools.initRecordParams(MainActivity.this);
 		//语义理解初始化
 		understandTools.initUnderstandParams(MainActivity.this);
+		//语音唤醒初始化
+		wakeTools.initWakeTools(MainActivity.this);
 
 		btnAdapter = new SearchButtonAdapter(this);
 		textListener = new SearchEditTextListener(this);
 
 
 		//人脸识别 
-		nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
+		/*nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
 		buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
 		mAcc = new Accelerometer(MainActivity.this);
 
-		mFaceDetector = FaceDetector.createDetector(MainActivity.this, null);
+		mFaceDetector = FaceDetector.createDetector(MainActivity.this, null);*/
 
 		//控件初始化
 		initUI();
@@ -159,6 +165,8 @@ public class MainActivity extends Activity implements OnTouchListener {
 		SessionUtil.reSetSession();
 
 		Setting.setShowLog(false);
+		
+		wakeTools.startWakeListener();
 
 	}
 	//初始化数据库
@@ -192,7 +200,6 @@ public class MainActivity extends Activity implements OnTouchListener {
 		soundPool.load(this,R.raw.unlock,1);
 
 		
-		
 		//待机页与主界面切换
 		//waitImg = (ImageView)findViewById(R.id.waitImg);
 		mainLayout = (LinearLayout)findViewById(R.id.mainLayout);
@@ -206,22 +213,12 @@ public class MainActivity extends Activity implements OnTouchListener {
 			
 			@Override
 			public void onClick(View v) {
-				AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-				float audioMaxVolumn = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-				float volumnCurrent = am.getStreamVolume(AudioManager.STREAM_MUSIC);
-				
-				float volumnRatio = volumnCurrent / audioMaxVolumn;
-				
-				soundPool.play(1,volumnRatio, volumnRatio, 0, 0, 1);
-				reSetTimeOut();//重置超时
 				
 				showMainLayout();
-				
 				
 			}
 		});
 		
-
 
 		//答案区域
 		answerArea = (ScrollView)findViewById(R.id.answerArea);
@@ -520,10 +517,29 @@ public class MainActivity extends Activity implements OnTouchListener {
 	public void showMainLayout(){
 		gifView.setVisibility(View.GONE);
 		mainLayout.setVisibility(View.VISIBLE);
+		
+		AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+		float audioMaxVolumn = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		float volumnCurrent = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+		
+		float volumnRatio = volumnCurrent / audioMaxVolumn;
+		
+		soundPool.play(1,volumnRatio, volumnRatio, 0, 0, 1);
+		
+		reSetTimeOut();//重置超时
+		
+		wakeTools.stopWeakUp();
+		
+		
 	}
 	public void waitImgBack(){
+		
+		stopSpeakAndRecord();
+		
 		mainLayout.setVisibility(View.GONE);
 		gifView.setVisibility(View.VISIBLE);
+		
+		wakeTools.startWakeListener();
 	}
 	
 	public void stopSpeakAndRecord(){
@@ -708,6 +724,7 @@ public class MainActivity extends Activity implements OnTouchListener {
 							if(timeOut >= 20000&&!speakTools.isPlay&&!recordTools.isRcord){
 								
 								handlerSendMessage("showWaitImg","");
+								
 							}
 						}
 						catch (InterruptedException e) {
@@ -733,6 +750,7 @@ public class MainActivity extends Activity implements OnTouchListener {
 		// 停止说话和录音
 		speakTools.stopSpeaking();
 		recordTools.stopRecording();
+		understandTools.stopUnderstand();
 	}
 
 	@Override
@@ -743,9 +761,6 @@ public class MainActivity extends Activity implements OnTouchListener {
 		mStopTrack = true;
 		closeCamera();
 
-		// 停止说话和录音
-		speakTools.stopSpeaking();
-		recordTools.stopRecording();
 		//销毁语音语义对象
 		speakTools.destory();
 		recordTools.destory();

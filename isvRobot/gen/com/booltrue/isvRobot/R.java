@@ -61,13 +61,15 @@ containing a value of this type.
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int bg=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int qr_code=0x7f020002;
-        public static final int robot_k_gif=0x7f020003;
-        public static final int voice_button=0x7f020004;
-        public static final int wait_bg=0x7f020005;
-        public static final int wait_png=0x7f020006;
+        public static final int back_button=0x7f020000;
+        public static final int bg=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int qr_code=0x7f020003;
+        public static final int robot_k_gif=0x7f020004;
+        public static final int title_bar=0x7f020005;
+        public static final int voice_button=0x7f020006;
+        public static final int wait_bg=0x7f020007;
+        public static final int wait_png=0x7f020008;
     }
     public static final class id {
         public static final int action_settings=0x7f0a000c;
