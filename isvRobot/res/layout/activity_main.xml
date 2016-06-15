@@ -21,8 +21,7 @@
 		android:scaleType="centerCrop"
 		gif:stop="true"
 		gif:src="@drawable/wait_bg"
-		gif:delay="1"
-		>
+		gif:delay="1" >
 	</com.booltrue.ui.view.TypegifView>
 	
     

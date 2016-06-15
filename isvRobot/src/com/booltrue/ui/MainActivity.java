@@ -3,6 +3,7 @@ package com.booltrue.ui;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import android.Manifest.permission;
 import android.annotation.SuppressLint;
@@ -167,6 +168,8 @@ public class MainActivity extends Activity implements OnTouchListener {
 		Setting.setShowLog(false);
 		
 		wakeTools.startWakeListener();
+		
+		
 
 	}
 	//初始化数据库
@@ -175,7 +178,7 @@ public class MainActivity extends Activity implements OnTouchListener {
 		questionBmobTools = new QuestionBmobTools();
 		//Bmob数据初始化
 		questionBmobTools.BmobInitialize(this);
-
+		
 
 		/*//questionDb = this.openOrCreateDatabase(DBHelper.DBName, Context.MODE_PRIVATE, null);
 		//使用dbHelper创建数据库 和 表
