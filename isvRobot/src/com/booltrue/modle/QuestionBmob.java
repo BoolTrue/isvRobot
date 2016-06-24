@@ -10,10 +10,12 @@ public class QuestionBmob extends BmobObject {
 	
 	public static final String QUESTION_TITLE =  "questionTitle";
 	public static final String QUESTION_ANSWER = "questionAnswer";
+	public static final String IS_IMG_MSG = "isImgMsg";
+	public static final String OBJECT_ID = "objectId";
 	
 	private String questionTitle;
 	private String questionAnswer;
-	
+	private Boolean isImgMsg;
 	public String getQuestionTitle() {
 		return questionTitle;
 	}
@@ -26,6 +28,14 @@ public class QuestionBmob extends BmobObject {
 	public void setQuestionAnswer(String questionAnswer) {
 		this.questionAnswer = questionAnswer;
 	}
+	public Boolean getIsImgMsg() {
+		return isImgMsg;
+	}
+	public void setIsImgMsg(Boolean isImgMsg) {
+		this.isImgMsg = isImgMsg;
+	}
+	
+	
 	
 	
 

@@ -7,24 +7,16 @@
     android:padding="0dp"
     tools:context="com.booltrue.ui.MainActivity" >
 
-    <!-- <ImageView
-        android:id="@+id/waitImg"
+    <com.booltrue.ui.view.TypegifView
+        android:id="@+id/gifView"
         android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:scaleType="centerCrop"
-	    android:src="@drawable/wait_png" />-->
-	
-	  <com.booltrue.ui.view.TypegifView
-	    android:id="@+id/gifView"
-		android:layout_width="fill_parent" 
-		android:layout_height="fill_parent"
-		android:scaleType="centerCrop"
-		gif:stop="true"
-		gif:src="@drawable/wait_bg"
-		gif:delay="1" >
-	</com.booltrue.ui.view.TypegifView>
-	
-    
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        gif:delay="1"
+        gif:src="@drawable/wait_bg"
+        gif:stop="true"  >
+    </com.booltrue.ui.view.TypegifView>
+
     <LinearLayout
         android:id="@+id/mainLayout"
         android:layout_width="fill_parent"
@@ -43,17 +35,17 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:background="@drawable/title_bar"
                 android:gravity="center"
                 android:text="“营改增”百事通语音咨询平台"
                 android:textColor="#0e455c"
-                android:background="@drawable/title_bar"
                 android:textSize="18dip" />
         </LinearLayout>
-
+		<!-- main内容 -->
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dip"
-            android:layout_weight="12"
+            android:layout_weight="10"
             android:background="@drawable/bg"
             android:orientation="vertical" >
 
@@ -89,15 +81,6 @@
                             android:textColor="#fff"
                             android:textSize="18sp" >
                         </EditText>
-
-                        <!--
-                         <Button
-                        android:id="@+id/searchBtn"
-                        android:layout_width="0dip"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Button" />
-                        -->
                     </LinearLayout>
 
                     <!-- 左下 -->
@@ -114,6 +97,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" >
                         </ListView>
+
+                        <!-- 答案区域 -->
 
                         <ScrollView
                             android:id="@+id/answerArea"
@@ -150,42 +135,31 @@
                                     android:textColor="#fff"
                                     android:textSize="12sp" />
 
-                                <Button
-                                    android:id="@+id/answerBack"
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="fill_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/back_button"
-                                    android:alpha="0.5"
-                                    android:scaleX="0.6"
-                                    android:scaleY="0.6"
+                                    android:orientation="horizontal" >
+
+                                    <Button
+                                        android:id="@+id/answerBack"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:alpha="0.5"
+                                        android:background="@drawable/back_button"
+                                        android:scaleX="0.6"
+                                        android:scaleY="0.6"
+                                        android:textColor="#ffe" />
                                     
-                                    android:textColor="#ffe" />
+                                    <TextView 
+                                        android:id="@+id/imgMsgLink"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="#fff"
+                                        android:text="点击查看详情步骤"
+                                        android:visibility="gone" />
+                                </LinearLayout>
                             </LinearLayout>
                         </ScrollView>
-
-                        <!--
-                    <LinearLayout
-                        android:id="@+id/answerArea"
-                        android:layout_width="fill_parent"
-                    	android:layout_height="fill_parent"
-                    	android:orientation="vertical"
-                    	android:visibility="gone">
-                    	
-                        <TextView 
-	                        android:id="@+id/questionAnswer"
-	                        android:layout_width="match_parent"
-	                        android:layout_height="wrap_content"
-	                        android:textSize="16sp"
-	                        android:textColor="#fff"/>
-                        <Button 
-                            android:id="@+id/answerBack"
-                            android:layout_width="wrap_content"
-                        	android:layout_height="wrap_content"
-                        	android:text="返回"
-                        	android:textColor="#ffe"/>
-                    </LinearLayout>
-                        -->
-
                     </LinearLayout>
                 </LinearLayout>
 

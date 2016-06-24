@@ -40,8 +40,8 @@ public class ToastUtil {
 						@Override
 						public void handleMessage(final Message msg) {
 
-							//mToast.setText(msg.getData().getString("showStr"));
-							//mToast.show();
+							mToast.setText(msg.getData().getString("showStr"));
+							mToast.show();
 
 						}
 					};

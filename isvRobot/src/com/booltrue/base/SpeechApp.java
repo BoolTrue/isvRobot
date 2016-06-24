@@ -1,8 +1,11 @@
 package com.booltrue.base;
 
+import org.xutils.x;
+
 import android.app.Application;
 
 import com.booltrue.isvRobot.R;
+import com.iflytek.cloud.Setting;
 import com.iflytek.cloud.SpeechUtility;
 
 public class SpeechApp extends Application {
@@ -23,7 +26,10 @@ public class SpeechApp extends Application {
 		SpeechUtility.createUtility(SpeechApp.this, "appid=" + getString(R.string.app_id));
 			
 		// 以下语句用于设置日志开关（默认开启），设置成false时关闭语音云SDK日志打印
-		// Setting.setShowLog(false);
+		 Setting.setShowLog(false);
+		 
+		 x.Ext.init(this);
+		 
 		super.onCreate();
 	}
 

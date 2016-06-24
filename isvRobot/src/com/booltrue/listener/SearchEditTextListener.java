@@ -6,7 +6,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 
 import com.booltrue.modle.QuestionBmob;
-import com.booltrue.tools.QuestionBmobTools;
+import com.booltrue.tools.BmobTools;
 import com.booltrue.ui.MainActivity;
 
 

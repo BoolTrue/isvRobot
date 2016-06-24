@@ -5,9 +5,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.booltrue.base.BaseActivity;
 import com.booltrue.modle.QuestionBmob;
 import com.booltrue.ui.MainActivity;
 import com.booltrue.utils.JsonParser;
+import com.booltrue.utils.SessionUtil;
 import com.booltrue.utils.StringUtils;
 import com.booltrue.utils.ToastUtil;
 import com.iflytek.cloud.ErrorCode;
@@ -26,7 +28,7 @@ public class UnderstandTools {
 
 	private Context mContext;
 
-	private MainActivity mainActivity;
+	private BaseActivity baseActivity;
 
 	int ret = 0;// 函数调用返回值
 
@@ -34,7 +36,7 @@ public class UnderstandTools {
 
 	public void initUnderstandParams(Context context){
 		this.mContext = context;
-		this.mainActivity = (MainActivity)context;
+		this.baseActivity = (BaseActivity)context;
 		//设置文本理解监听
 		mTextUnderstander = TextUnderstander.createTextUnderstander(
 				context, mTextUdrInitListener);
@@ -56,7 +58,7 @@ public class UnderstandTools {
 			/*mTextUnderstander.cancel();
 			ToastUtil.showTip("取消文本理解", mContext, Toast.LENGTH_SHORT);*/
 		}
-		else if(!mainActivity.recordTools.isRcord){
+		else if(!baseActivity.recordTools.isRcord){
 			//字符串处理 去除标点符号
 			String unPunctuateStr = StringUtils.replaceAllPunctuate(understandStr);
 			
@@ -136,19 +138,17 @@ public class UnderstandTools {
 
 		String[] sqlParam = StringUtils.translatEditText(understandStr);
 
-		QuestionBmobTools mQuestionBmobTools = mainActivity.getBmobTools();
+		baseActivity.QueryBmobObjects(sqlParam, QuestionBmob.QUESTION_TITLE);
 
-		mQuestionBmobTools.QueryBmobObject(sqlParam, QuestionBmob.QUESTION_TITLE);
-
-		mainActivity.reSetTimeOut();//重置超时
+		SessionUtil.reSetTimeOut();//重置超时
 	}
 	/**
 	 * 讯飞答案处理
 	 * @param answer
 	 */
 	public void resultDealWith(String answer){
-		
-		mainActivity.showAndSpeakAnswer(answer);
+
+		((MainActivity) baseActivity).showAndSpeakAnswer(answer);
 	}
 	
 
