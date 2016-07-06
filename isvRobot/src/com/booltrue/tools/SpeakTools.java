@@ -104,7 +104,7 @@ public class SpeakTools {
 		@Override
 		public void onSpeakBegin() {
 			isPlay = true;
-			ToastUtil.showTip("开始播放", context, Toast.LENGTH_SHORT);
+			//ToastUtil.showTip("开始播放", context, Toast.LENGTH_SHORT);
 		}
 
 		@Override
@@ -137,7 +137,7 @@ public class SpeakTools {
 		@Override
 		public void onCompleted(SpeechError error) {
 			if (error == null) {
-				ToastUtil.showTip("播放完成", context, Toast.LENGTH_SHORT);
+				//ToastUtil.showTip("播放完成", context, Toast.LENGTH_SHORT);
 
 			} else if (error != null) {
 				ToastUtil.showTip(error.getPlainDescription(true), context, Toast.LENGTH_SHORT);
@@ -202,6 +202,7 @@ public class SpeakTools {
 		mTts.stopSpeaking();
 		this.isPlay = false;
 	}
+	
 	
 	public void destory(){
 		mTts.destroy();

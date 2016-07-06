@@ -27,6 +27,8 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechUtility;
+import com.iflytek.cloud.ui.RecognizerDialog;
+import com.iflytek.cloud.ui.RecognizerDialogListener;
 
 public class RecordTools {
 	// 语记安装助手类
@@ -48,11 +50,11 @@ public class RecordTools {
 	private long startRecord = 0;
 
 
-
 	public void initRecordParams(Context context){
 		this.context = context;
 
 		this.mInstaller = new  ApkInstaller((Activity)context);
+
 
 		// 使用SpeechRecognizer对象，可根据回调消息自定义界面；
 		mIat = SpeechRecognizer.createRecognizer(context, mInitListener);
@@ -62,11 +64,11 @@ public class RecordTools {
 
 	public void startRecord(){
 		// 设置参数
-		setParam();
-		// 不显示听写对话框
+		setParam();		
+		
 		ret = mIat.startListening(mRecognizerListener);
 		if (ret != ErrorCode.SUCCESS) {
-			
+
 			ToastUtil.showTip("听写失败,错误码：" + ret, context, Toast.LENGTH_SHORT);
 		} 
 		else {
@@ -117,19 +119,19 @@ public class RecordTools {
 
 		@Override
 		public void onResult(RecognizerResult results, boolean isLast) {
-			
+
 			Log.d(TAG, "结果:" + results.getResultString() + "  isLast:"+ isLast);
 			//实时设置文本框的内容
 			((MainActivity)context).handlerSendMessage("editText", translateResult(results));
-			
-			
+
+
 			if (isLast) {
 				// TODO 最后的结果
 				Log.d(TAG, "最后的结果:"  +  results.getResultString());
 				resultStr = translateResult(results);
 				isRcord = false;
 				Log.d(TAG, "resultStr:"  +  resultStr);
-				
+
 				//((MainActivity)context).handlerSendMessage("editText", resultStr);
 			}
 
@@ -177,6 +179,7 @@ public class RecordTools {
 			//	}
 		}
 	};
+	
 
 	/**
 	 * 参数设置
@@ -193,7 +196,7 @@ public class RecordTools {
 			mIat.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
 		}
 		else{
-			
+
 			/**
 			 * 选择本地听写 判断是否安装语记,未安装则跳转到提示安装页面
 			 */
@@ -202,7 +205,7 @@ public class RecordTools {
 
 					@Override
 					public void run() {
-						
+
 						mInstaller.install();
 					}
 				});
@@ -214,8 +217,8 @@ public class RecordTools {
 					ToastUtil.showTip(result, context, Toast.LENGTH_SHORT);
 				}
 			}
-			
-			
+
+
 			// 设置听写引擎  本地
 			mIat.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
 		}
@@ -243,10 +246,18 @@ public class RecordTools {
 	}
 
 	public void stopRecording(){
+		if(mIat.isListening()){
+			mIat.stopListening();
+		}
+
+		this.isRcord = false;
+	}
+
+	public void cancleRecording(){
 		mIat.cancel();
 		this.isRcord = false;
 	}
-	
+
 	public void destory(){
 		mIat.destroy();
 	}

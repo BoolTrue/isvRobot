@@ -14,7 +14,7 @@
         android:scaleType="centerCrop"
         gif:delay="1"
         gif:src="@drawable/wait_bg"
-        gif:stop="true"  >
+        gif:stop="true" >
     </com.booltrue.ui.view.TypegifView>
 
     <LinearLayout
@@ -22,6 +22,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_margin="0dp"
+        android:background="@drawable/bg"
         android:orientation="vertical"
         android:visibility="gone" >
 
@@ -39,14 +40,14 @@
                 android:gravity="center"
                 android:text="“营改增”百事通语音咨询平台"
                 android:textColor="#0e455c"
-                android:textSize="18dip" />
+                android:textSize="18sp" />
         </LinearLayout>
-		<!-- main内容 -->
+        <!-- main内容 -->
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="0dip"
             android:layout_weight="10"
-            android:background="@drawable/bg"
             android:orientation="vertical" >
 
             <LinearLayout
@@ -149,13 +150,13 @@
                                         android:scaleX="0.6"
                                         android:scaleY="0.6"
                                         android:textColor="#ffe" />
-                                    
-                                    <TextView 
+
+                                    <TextView
                                         android:id="@+id/imgMsgLink"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textColor="#fff"
                                         android:text="点击查看详情步骤"
+                                        android:textColor="#fff"
                                         android:visibility="gone" />
                                 </LinearLayout>
                             </LinearLayout>
@@ -190,6 +191,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:visibility="invisible" />
+
+                        <Button
+                            android:id="@+id/billCheck"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="发票识别" />
                     </LinearLayout>
 
                     <!-- 右下 -->

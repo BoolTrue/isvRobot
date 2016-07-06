@@ -42,14 +42,6 @@
             android:paddingLeft="3dp"
             android:paddingRight="3dp" />
 
-        <!-- <com.booltrue.ui.view.HorizontalListView
-            android:id="@+id/thumbnailView"
-            android:layout_width="fill_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-            android:visibility="visible"
-            android:background="#eee" >
-            </com.booltrue.ui.view.HorizontalListView> --> 
 
         <HorizontalScrollView
             android:layout_width="fill_parent"

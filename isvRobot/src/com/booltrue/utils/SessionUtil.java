@@ -13,10 +13,6 @@ public class SessionUtil {
 		WAIT_TO_SPEAK,IS_SPEAKING,IS_SEARCHING
 	}
 
-
-	/*public static void reSetSession(){
-		
-	}*/
 	
 	public static void reSetTimeOut(){
 		doNotAnyActionTime =  System.currentTimeMillis();
@@ -32,7 +28,7 @@ public class SessionUtil {
 		NetworkInfo info = cwjManager.getActiveNetworkInfo(); 
 		if (info != null && info.isAvailable()){ 
 			return true;
-		} 
+		}
 		else
 		{
 			return false;

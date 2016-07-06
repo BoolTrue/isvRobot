@@ -3,6 +3,7 @@ package com.booltrue.adapter;
 import android.content.Context;
 import android.view.View;
 
+import com.booltrue.isvRobot.R;
 import com.booltrue.utils.SessionUtil;
 import com.booltrue.utils.SessionUtil.SearchButtonStatus;
 
@@ -21,7 +22,10 @@ public class SearchButtonAdapter implements View.OnClickListener {
 	}
 	
 	@Override 
-	public void onClick(View v) {
+	public void onClick(View view) {
+		
+		view.setBackgroundResource(R.drawable.voice_button);
+		
 		//隐藏答案区域
 		mainActivity.answerBack();
 		//停止说话
@@ -51,7 +55,8 @@ public class SearchButtonAdapter implements View.OnClickListener {
 		//清空文本
 		mainActivity.handlerSendMessage("editTextClear", "");
 		
-		mainActivity.recordTools.startRecord();
+		//mainActivity.recordTools.startRecord();
+		mainActivity.recordUITools.startRecord();//使用UI
 		
 		btnStatus = SearchButtonStatus.WAIT_TO_SPEAK;
 		

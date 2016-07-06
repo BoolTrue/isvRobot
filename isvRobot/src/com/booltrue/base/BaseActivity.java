@@ -11,9 +11,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
-
 import com.booltrue.tools.BmobTools;
 import com.booltrue.tools.RecordTools;
+import com.booltrue.tools.RecordUITools;
 import com.booltrue.tools.SpeakTools;
 import com.booltrue.utils.SessionUtil;
 
@@ -26,6 +26,8 @@ public abstract class BaseActivity extends Activity implements OnTouchListener {
 	public RecordTools recordTools = new RecordTools();
 	
 	protected BmobTools bmobTools = new BmobTools();;
+	
+	public RecordUITools recordUITools = new RecordUITools();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,9 @@ public abstract class BaseActivity extends Activity implements OnTouchListener {
 		speakTools.initSpeakParams(this);
 		//语音录入初始化
 		recordTools.initRecordParams(this);
+		
+		//UI语音录入初始化
+		recordUITools.initRecordParams(this);
 	}
 	
 	/**

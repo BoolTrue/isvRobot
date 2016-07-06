@@ -38,6 +38,7 @@ import com.booltrue.adapter.SearchButtonAdapter;
 import com.booltrue.base.BaseActivity;
 import com.booltrue.isvRobot.R;
 import com.booltrue.listener.SearchEditTextListener;
+import com.booltrue.listener.VoiceButtonOnTouchListener;
 import com.booltrue.modle.QuestionBmob;
 import com.booltrue.tools.BmobTools;
 import com.booltrue.tools.UnderstandTools;
@@ -67,6 +68,7 @@ public class MainActivity extends BaseActivity implements OnTouchListener {
 
 	private SearchButtonAdapter btnAdapter = null;
 	private SearchEditTextListener textListener = null;
+	private VoiceButtonOnTouchListener btnOnTouchListener = null;
 
 	//SQLite数据库
 	/*private SQLiteDatabase questionDb = null;
@@ -89,6 +91,8 @@ public class MainActivity extends BaseActivity implements OnTouchListener {
 	//播放音效
 	private SoundPool soundPool;
 	
+	private Button billCheck;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -97,7 +101,7 @@ public class MainActivity extends BaseActivity implements OnTouchListener {
 		setContentView(R.layout.activity_main);
 		
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); 
-
+		
 		//语音合成初始化
 		speakTools.initSpeakParams(this);
 		//语音录入初始化
@@ -106,11 +110,14 @@ public class MainActivity extends BaseActivity implements OnTouchListener {
 		understandTools.initUnderstandParams(this);
 		//语音唤醒初始化
 		wakeTools.initWakeTools(this);
-
+		
+		//监听初始化
 		btnAdapter = new SearchButtonAdapter(this);
 		textListener = new SearchEditTextListener(this);
-
-
+		
+		btnOnTouchListener = new VoiceButtonOnTouchListener(this);
+		
+		
 		//人脸识别 
 		/*nv21 = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
 		buffer = new byte[PREVIEW_WIDTH * PREVIEW_HEIGHT * 2];
@@ -171,13 +178,10 @@ public class MainActivity extends BaseActivity implements OnTouchListener {
 					waitImgBack();
 				}
 				else if(bundleTmp.containsKey("questionAnswer")){
-					questionAnswer.setText(bundleTmp.getString("questionAnswer"));
+					questionAnswer.setText("    " + bundleTmp.getString("questionAnswer").trim().replaceAll("/?", ""));
 				}
-
 			}
 		};
-
-
 	}
 
 	@SuppressLint({ "ShowToast", "ClickableViewAccessibility" })
@@ -237,26 +241,51 @@ public class MainActivity extends BaseActivity implements OnTouchListener {
 
 		//设置ImageButton监听
 		imgVoiceBtn.setOnClickListener(btnAdapter);
-		imgVoiceBtn.setOnTouchListener(new OnTouchListener() {
+		
+		/*imgVoiceBtn.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View searchBtn, MotionEvent event) {
 				
-				
 				if(event.getAction() == MotionEvent.ACTION_DOWN){
-					searchBtn.setBackgroundResource(R.drawable.voice_button_touch);
+					
+					searchBtn.setBackgroundResource(R.drawable.voice_button);
+					
+					//隐藏答案区域
+					((MainActivity)mContext).answerBack();
+					//停止说话
+					baseActivity.stopSpeakAndRecord();
+					
+					//震动提醒
+					baseActivity.vibratorService(100l);
+					
+					//开始讲话
+					//清空文本
+					baseActivity.handlerSendMessage("editTextClear", "");
+					
+					baseActivity.recordTools.startRecord();
+					
+					SessionUtil.reSetTimeOut();
+					
 				}
 				else if(event.getAction() == MotionEvent.ACTION_UP){
-					searchBtn.setBackgroundResource(R.drawable.voice_button);
+					
+					searchBtn.setBackgroundResource(R.drawable.voice_button_touch);
+					
+					baseActivity.stopSpeakAndRecord();
 				}
 				
-				return false;//使onclick事件生效
+				
+				
+				return false;
 			}
-		});
+		});*/
+		
+		//imgVoiceBtn.setOnTouchListener(btnOnTouchListener);
+		
+		//票据识别
+		//billCheck = (Button)findViewById(R.id.billCheck);
 	}
-
-
-
 
 	public void bindListAdapter(SimpleAdapter arrayAdapter,final List<Map<String,Object>> resultList ){
 		
@@ -274,9 +303,8 @@ public class MainActivity extends BaseActivity implements OnTouchListener {
 
 				Map<String,Object> result = resultList.get(position);
 				
-				
-				String questionId = result.get(QuestionBmob.OBJECT_ID).toString();
-				String answer = result.get(QuestionBmob.QUESTION_ANSWER).toString();
+				String questionId = result.get(QuestionBmob.OBJECT_ID).toString().trim();
+				String answer = result.get(QuestionBmob.QUESTION_ANSWER).toString().trim();
 				Boolean isImgMsg = (Boolean) result.get(QuestionBmob.IS_IMG_MSG);
 				
 				if(isImgMsg==null){
@@ -297,7 +325,6 @@ public class MainActivity extends BaseActivity implements OnTouchListener {
 			}
 		});
 	}
-	
 	
 	/**
 	 * 多行条件查询
@@ -451,7 +478,7 @@ public class MainActivity extends BaseActivity implements OnTouchListener {
 	public boolean onTouch(View v, MotionEvent event) {
 		SessionUtil.reSetTimeOut();
 		
-		return true;
+		return false;
 	}
 
 	@Override

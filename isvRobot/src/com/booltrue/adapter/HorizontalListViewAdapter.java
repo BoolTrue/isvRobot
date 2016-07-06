@@ -5,28 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.xutils.x;
-import org.xutils.common.Callback.Cancelable;
-import org.xutils.common.Callback.CancelledException;
-import org.xutils.common.Callback.CommonCallback;
 import org.xutils.common.util.DensityUtil;
 import org.xutils.image.ImageOptions;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.media.ThumbnailUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
-import android.widget.Toast;
 
-import com.android.volley.toolbox.ImageLoader;
 import com.booltrue.isvRobot.R;
-import com.booltrue.utils.BitmapUtil;
-import com.booltrue.utils.ToastUtil;
 
 public class HorizontalListViewAdapter extends BaseAdapter{
 

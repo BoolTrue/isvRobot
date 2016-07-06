@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.xutils.x;
-import org.xutils.common.Callback.CancelledException;
 import org.xutils.common.Callback.CommonCallback;
 import org.xutils.common.util.DensityUtil;
+import org.xutils.http.RequestParams;
 import org.xutils.image.ImageOptions;
+import org.xutils.image.ImageOptions.ParamsBuilder;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -32,17 +35,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
-import com.booltrue.adapter.HorizontalListViewAdapter;
 import com.booltrue.base.BaseActivity;
 import com.booltrue.isvRobot.R;
 import com.booltrue.modle.AnswerImg;
 import com.booltrue.tools.BmobTools;
+import com.booltrue.utils.BitmapUtil;
+import com.booltrue.utils.SessionUtil;
 import com.booltrue.utils.ToastUtil;
 
 public class AnswerActivity extends BaseActivity implements OnTouchListener  {
@@ -63,9 +66,9 @@ public class AnswerActivity extends BaseActivity implements OnTouchListener  {
 	private String objectId = "";
 
 	private LayoutInflater mInflater;
-	
+
 	private LinearLayout thumbnailLinearLayout;
-	
+
 	private int listCount = 0 ;
 
 
@@ -137,7 +140,7 @@ public class AnswerActivity extends BaseActivity implements OnTouchListener  {
 
 		//图片切换
 		viewPager = (ViewPager)findViewById(R.id.viewPager);
-		
+
 		thumbnailLinearLayout = (LinearLayout)findViewById(R.id.thumbnailLinearLayout);
 
 	}
@@ -177,101 +180,110 @@ public class AnswerActivity extends BaseActivity implements OnTouchListener  {
 
 				Log.d(TAG, "resultList -->" + resultList.size());
 
+
+				listCount = 0;
 				for(AnswerImg imgObj : resultList){
+
+					listCount ++;
 
 					View pageView = mInflater.inflate(R.layout.pager_view, null);
 
 					TextView textView = (TextView)pageView.findViewById(R.id.pagerText);
 					ImageView imgView = (ImageView)pageView.findViewById(R.id.pagerImg);
-					
+
 					textView.setText(imgObj.getAnswerText());
 
 					String imgUrl = imgObj.getAnswerImg().getUrl();
-					
-					
+
 					//绑定img控件
 					ImageOptions imageOptions = new ImageOptions.Builder()
 					.setRadius(DensityUtil.dip2px(5))//ImageView圆角半径
+					.setSize(DensityUtil.dip2px(320) , DensityUtil.dip2px(240))
 					.setCrop(true)// 如果ImageView的大小不是定义为wrap_content, 不要crop.
 					.setImageScaleType(ImageView.ScaleType.CENTER_CROP)
 					.setLoadingDrawableId(R.drawable.img_loading)//加载中默认显示图片
 					.setFailureDrawableId(R.drawable.img_fail)
+					.setFadeIn(true)
 					.build();
-					
+
 					//绑定img图片到ImageView里面
-					x.image().bind(imgView, imgUrl.toString(),imageOptions,new CommonCallback<Drawable>() {
-						
+					x.image().bind(imgView, imgUrl,imageOptions,new CommonCallback<Drawable>() {
 						@Override
 						public void onSuccess(Drawable paramResultType) {
-							imgDrawable.add(paramResultType);
+
+							/*Bitmap b = BitmapUtil.drawableToBitmap(paramResultType);
+							int w = getResources().getDimensionPixelOffset(R.dimen.thumnail_default_width);  
+							int h = getResources().getDimensionPixelSize(R.dimen.thumnail_default_height);  
+							Bitmap thumBitmap = ThumbnailUtils.extractThumbnail(b, w, h);
+
+							View view = mInflater.inflate(R.layout.horizontal_list_item,null);
+							ImageView thumImg = (ImageView)view.findViewById(R.id.img_list_item);
+							//吧加载好的bitmap放到imageView里面
+							thumImg.setImageBitmap(thumBitmap);
+
+							//添加到布局中
+							thumbnailLinearLayout.addView(view);*/
 						}
-						
+
 						@Override
 						public void onFinished() {
-							
+
 						}
-						
+
 						@Override
 						public void onError(Throwable paramThrowable, boolean paramBoolean) {
-							
+							ToastUtil.showTip("加载失败" + paramThrowable.getMessage(), AnswerActivity.this, Toast.LENGTH_SHORT);
+
+							Log.d(TAG, "加载失败" + paramThrowable.getMessage());
 						}
-						
+
 						@Override
 						public void onCancelled(CancelledException paramCancelledException) {
-							
+
 						}
 					});
-					
-					
+
 					pagerViewList.add(pageView);
 
-					Log.d(TAG, imgUrl);
 					imgUrlList.add(imgUrl);
 				}
 				//设定HorizontalListView 
-				
+
 				/*ListAdapter thumbnailViewAdapter = new HorizontalListViewAdapter(AnswerActivity.this,  imgUrlList);
-
 				thumbnailView.setAdapter(thumbnailViewAdapter);
-
 				thumbnailView.setOnItemClickListener(new OnItemClickListener() {
-
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
 						PagerAdapter pagerAdapter =  viewPager.getAdapter();
-
 						int pagerCount = pagerAdapter.getCount();
-
 						if(position > pagerCount||pagerCount==0){
 							return;
 						}
-
 						viewPager.setCurrentItem(position);
-						
+
 					}
 				});*/
-				
+
 				//加载缩略图
-				
+
 				listCount = 0;
 				for(String imgUrl : imgUrlList){
-					
+
 					listCount++;
-					
+
 					if(imgUrl.equals("")){
 						continue;
 					}
-					
+
 					View view = mInflater.inflate(R.layout.horizontal_list_item,null);
-					
+
 					ImageView thumImg = (ImageView)view.findViewById(R.id.img_list_item);
-					
+
 					int w = getResources().getDimensionPixelOffset(R.dimen.thumnail_default_width);
 					int h = getResources().getDimensionPixelSize(R.dimen.thumnail_default_height);
-					
+
 					//图片绑定设置
-					
+
 					ImageOptions imageOptions = new ImageOptions.Builder()
 					.setRadius(DensityUtil.dip2px(10))//ImageView圆角半径
 					.setSize(w,h)
@@ -279,46 +291,45 @@ public class AnswerActivity extends BaseActivity implements OnTouchListener  {
 					.setImageScaleType(ScaleType.FIT_CENTER)
 					.setLoadingDrawableId(R.drawable.img_loading)//加载中默认显示图片
 					.setFailureDrawableId(R.drawable.img_fail)
+					.setFadeIn(true)
 					.build();
 					//异步加载图片
 					x.image().bind(thumImg, imgUrl, imageOptions);
-					
+
 					//添加到布局中
 					thumbnailLinearLayout.addView(view);
+
 				}
-				
-				
-				
-				
+
 				thumbnailLinearLayout.setOnTouchListener(new OnTouchListener() {
-					
+
 					@Override
 					public boolean onTouch(View v, MotionEvent event) {
-						
+
 						int width = thumbnailLinearLayout.getWidth();
-						
+
 						int itemCount = thumbnailLinearLayout.getChildCount();
-						
+
 						float itemWidth = width/itemCount*1.0f;
 						float touchX = event.getX(0);
-						
+
 						int coverCount = (int) (touchX/itemWidth);
-						
+
 						viewPager.setCurrentItem(coverCount);
-						
+
 						for(int i=0;i<itemCount;i++){
 							thumbnailLinearLayout.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
 						}
 
 						thumbnailLinearLayout.getChildAt(coverCount).setBackgroundColor(Color.argb(50, 0, 186, 255));
-						
+
 						Log.d(TAG, "RawX -->" + event.getX(0) + "    RawY -->" + event.getY(0));
-						
+
 						return false;
 					}
 				});
 
-				
+
 				//绑定adapter
 				viewPager.setAdapter(new PagerAdapter() {
 
@@ -375,12 +386,12 @@ public class AnswerActivity extends BaseActivity implements OnTouchListener  {
 
 					@Override
 					public void onPageScrollStateChanged(int state) {
-						
+
 					}
 				});
-				
+
 				viewPager.setOnClickListener(new OnClickListener() {
-					
+
 					@Override
 					public void onClick(View v) {
 						if(thumbnailLinearLayout.getVisibility() == View.VISIBLE){
@@ -389,7 +400,7 @@ public class AnswerActivity extends BaseActivity implements OnTouchListener  {
 						else{
 							thumbnailLinearLayout.setVisibility(View.VISIBLE);
 						}
-						
+
 					}
 				});
 
@@ -402,13 +413,14 @@ public class AnswerActivity extends BaseActivity implements OnTouchListener  {
 			}
 		});
 	}
-	
-	
 
+
+	@SuppressLint("ClickableViewAccessibility")
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 
 		stopSpeakAndRecord();
+		SessionUtil.reSetTimeOut();
 
 		return false;
 	}
@@ -416,7 +428,32 @@ public class AnswerActivity extends BaseActivity implements OnTouchListener  {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		//检测用户操作是否超时（一定时间不操作则自动进入等待界面）
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
 
+				while(true){
+					//如果主界面正在显示
+					try {
+						//每隔一秒做一次检查
+						Thread.sleep(1000l);
+						long timeOut = System.currentTimeMillis() - SessionUtil.doNotAnyActionTime;
+						//如果时间超时30秒则返回待机界面
+						if(timeOut >= 30000&&!speakTools.isPlay&&!recordTools.isRcord){
+
+							AnswerActivity.this.finish();
+							break;
+						}
+					}
+					catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+
+				}
+			}
+		}).start();
 	}
 
 	@Override

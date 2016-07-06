@@ -9,16 +9,11 @@ import android.widget.Toast;
 
 public class ToastUtil {
 
-	//仅作测试
 	private static Toast mToast = null;
 	
 	private static Handler mHandler = null;
 
-
-	//显示弹出信息
 	public static void showTip(String str,final Context context , final int toastLength) {
-		
-		
 		
 		Bundle bundle = new Bundle();
 		bundle.putString("showStr", str);
@@ -42,19 +37,11 @@ public class ToastUtil {
 
 							mToast.setText(msg.getData().getString("showStr"));
 							mToast.show();
-
 						}
 					};
 				}
-				
-				
 				mHandler.sendMessage(msg);
 			};
 		});
-		
-
-
-
-
 	}
 }
